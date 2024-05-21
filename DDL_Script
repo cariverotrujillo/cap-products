@@ -1,0 +1,200 @@
+
+CREATE TABLE com_logali_Products (
+  id NVARCHAR(36) NOT NULL,
+  name NVARCHAR(255) NOT NULL,
+  Description NVARCHAR(255),
+  ImageUrl NVARCHAR(255),
+  ReleaseDate DATETIME_TEXT DEFAULT CURRENT_TIMESTAMP,
+  DiscontinuedDate DATETIME_TEXT,
+  Price DECIMAL(16, 2),
+  Height DECIMAL(16, 2),
+  width DECIMAL(16, 2),
+  Depth DECIMAL(16, 2),
+  Quantity DECIMAL(16, 2),
+  Currency_Id NVARCHAR(3),
+  Category_Id NVARCHAR(1),
+  Supplier_id NVARCHAR(36),
+  UnitOfMeasure_id NVARCHAR(2),
+  DimensionUnit_Id NVARCHAR(2),
+  PriceCondition NVARCHAR(2),
+  PrinceDetermination NVARCHAR(3),
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE com_logali_Suppliers (
+  id NVARCHAR(36) NOT NULL,
+  name NVARCHAR(255) NOT NULL,
+  Address_Street NVARCHAR(255),
+  Address_City NVARCHAR(255),
+  Address_State NVARCHAR(2),
+  Address_PostalCode NVARCHAR(5),
+  Address_Country NVARCHAR(3),
+  Email NVARCHAR(255),
+  Phone NVARCHAR(255),
+  Fax NVARCHAR(255),
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE com_logali_Categories (
+  id NVARCHAR(1) NOT NULL,
+  name NVARCHAR(255),
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE com_logali_StockAvailability (
+  id INTEGER NOT NULL,
+  Description NVARCHAR(255),
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE com_logali_Currencies (
+  id NVARCHAR(3) NOT NULL,
+  Description NVARCHAR(255),
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE com_logali_UnitOfMeasures (
+  id NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(255),
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE com_logali_DimensionsUnits (
+  id NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(255),
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE com_logali_Months (
+  id NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(255),
+  ShortDescription NVARCHAR(3),
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE com_logali_ProductReview (
+  id NVARCHAR(36) NOT NULL,
+  createdAt DATETIME_TEXT,
+  createdBy NVARCHAR(255),
+  modifiedAt DATETIME_TEXT,
+  modifiedby NVARCHAR(255),
+  Name NVARCHAR(255),
+  Rating INTEGER,
+  Comment NVARCHAR(255),
+  Product_ID NVARCHAR(36),
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE com_logali_SalesData (
+  ID NVARCHAR(36) NOT NULL,
+  DeliveryDate DATETIME_TEXT,
+  Revenue DECIMAL(16, 2),
+  Product_Id NVARCHAR(36),
+  Currency_Id NVARCHAR(2),
+  DeliveryMonth_Id NVARCHAR(2),
+  PRIMARY KEY(ID)
+);
+
+CREATE VIEW com_logali_SelProduct AS SELECT
+  Products_0.id,
+  Products_0.name,
+  Products_0.Description,
+  Products_0.ImageUrl,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Currency_Id,
+  Products_0.Category_Id,
+  Products_0.Supplier_id,
+  Products_0.UnitOfMeasure_id,
+  Products_0.DimensionUnit_Id,
+  Products_0.PriceCondition,
+  Products_0.PrinceDetermination
+FROM com_logali_Products AS Products_0;
+
+CREATE VIEW com_logali_SelProducts1 AS SELECT
+  Products_0.id,
+  Products_0.name,
+  Products_0.Description,
+  Products_0.ImageUrl,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Currency_Id,
+  Products_0.Category_Id,
+  Products_0.Supplier_id,
+  Products_0.UnitOfMeasure_id,
+  Products_0.DimensionUnit_Id,
+  Products_0.PriceCondition,
+  Products_0.PrinceDetermination
+FROM com_logali_Products AS Products_0;
+
+CREATE VIEW com_logali_SelProduct2 AS SELECT
+  Products_0.name,
+  Products_0.Price,
+  Products_0.Quantity
+FROM com_logali_Products AS Products_0;
+
+CREATE VIEW com_logali_SelProduct3 AS SELECT
+  ProductReview_1.Rating,
+  Products_0.name,
+  sum(Products_0.Price) AS totalPrice
+FROM (com_logali_Products AS Products_0 LEFT JOIN com_logali_ProductReview AS ProductReview_1 ON Products_0.id = ProductReview_1.id)
+GROUP BY ProductReview_1.Rating, Products_0.name
+ORDER BY Rating;
+
+CREATE VIEW com_logali_ProjProducts AS SELECT
+  Products_0.id,
+  Products_0.name,
+  Products_0.Description,
+  Products_0.ImageUrl,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Currency_Id,
+  Products_0.Category_Id,
+  Products_0.Supplier_id,
+  Products_0.UnitOfMeasure_id,
+  Products_0.DimensionUnit_Id,
+  Products_0.PriceCondition,
+  Products_0.PrinceDetermination
+FROM com_logali_Products AS Products_0;
+
+CREATE VIEW com_logali_ProjProducts1 AS SELECT
+  Products_0.id,
+  Products_0.name,
+  Products_0.Description,
+  Products_0.ImageUrl,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Currency_Id,
+  Products_0.Category_Id,
+  Products_0.Supplier_id,
+  Products_0.UnitOfMeasure_id,
+  Products_0.DimensionUnit_Id,
+  Products_0.PriceCondition,
+  Products_0.PrinceDetermination
+FROM com_logali_Products AS Products_0;
+
+CREATE VIEW com_logali_ProjProducts2 AS SELECT
+  Products_0.ReleaseDate,
+  Products_0.name
+FROM com_logali_Products AS Products_0;
+
