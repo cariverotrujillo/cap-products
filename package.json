@@ -6,21 +6,41 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@cap-js/graphql": "^0.10.1",
+    "@graphql-tools/schema": "^10.0.3",
     "@sap-cloud-sdk/http-client": "^3.15.0",
     "@sap-cloud-sdk/resilience": "^3.15.0",
     "@sap/cds": "^7",
     "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4"
+    "express": "^4",
+    "express-graphql": "^0.12.0",
+    "graphql": "15.3.0"
   },
   "devDependencies": {
-    "@cap-js/sqlite": "^1"
+    "@cap-js/sqlite": "^1",
+    "@sap/eslint-plugin-ui5-jsdocs": "^2.0.5",
+    "@sap/ux-specification": "^1.120.10",
+    "@sapui5/ts-types": "^1.92.2",
+    "cds-swagger-ui-express": "^0.8.0",
+    "eslint": "^7.32.0"
   },
   "scripts": {
-    "start": "cds watch"
+    "start": "cds watch",
+    "watch-product": "cds watch --open product/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
+    "i18n":{
+      "default_language": "es",
+      "folders": [
+        "i18n",
+        "assets/i18n"
+      ]
+    },
+    "features": {
+      "graphql": true
+    },
     "requires": {
       "sapbackend": {
         "kind": "odata-v2",
@@ -32,5 +52,8 @@
         }
       }
     }
-  }
+  },
+  "sapux": [
+    "app/product"
+  ]
 }
